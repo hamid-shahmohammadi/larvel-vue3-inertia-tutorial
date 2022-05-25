@@ -1,22 +1,36 @@
 <template>
+<Head>
+    <title>users</title>
+    <meta type="description" content="information this users" head-key="description">
+</Head>
+
 <div>
 
     <h1>Users</h1>
 
-    <div style="margin-top:800px">
-        <p>{{time}}</p>
-        <Link href="/users" class="text-blue-500" preserve-scroll>refresh</Link>
-    </div>
+    <ul class="m-3">
+        <li v-for="(user,index) in users" :key="index" v-text="user.name"></li>
+    </ul>
+
+    <Pagination />
 
 </div>
 
 </template>
 
+<script>
+import Layout from './Shared/Layout.vue';
 
+
+
+export default{
+    layout:Layout
+}
+</script>
 
 <script setup>
+import Pagination from '@/Components/Pagination.vue';
 
 
-import { Link } from '@inertiajs/inertia-vue3';
-defineProps({time: String});
+defineProps({time: String,users:Array});
 </script>

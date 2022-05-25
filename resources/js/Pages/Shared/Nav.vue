@@ -1,6 +1,6 @@
 <template>
 <nav>
-    <ul class="flex space-x-4">
+    <ul class="flex space-x-6">
         <li>
             <NavLink href="/users" :active="$page.component=='Users'">
                 users
