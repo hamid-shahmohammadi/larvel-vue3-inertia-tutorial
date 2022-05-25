@@ -9,10 +9,10 @@
     <h1>Users</h1>
 
     <ul class="m-3">
-        <li v-for="(user,index) in users" :key="index" v-text="user.name"></li>
+        <li v-for="(user,index) in users.data" :key="index" v-text="user.name"></li>
     </ul>
 
-    <Pagination />
+    <Pagination :links="users.links" />
 
 </div>
 
@@ -32,5 +32,5 @@ export default{
 import Pagination from '@/Components/Pagination.vue';
 
 
-defineProps({time: String,users:Array});
+defineProps({time: String,users:Object});
 </script>

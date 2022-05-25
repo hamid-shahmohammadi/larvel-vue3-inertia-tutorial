@@ -9,13 +9,11 @@ class UserController extends Controller
 {
     public function index()
     {
+        $users = User::paginate();
 
         return inertia('Users',[
             'time'=>now()->toTimeString(),
-            'users'=>User::all()->map(fn($user)=>[
-                
-                'name'=>$user->name,
-            ]),
+            'users'=>$users,
         ]);
     }
 }
