@@ -1,22 +1,52 @@
 <template>
+<Head>
+    <title>users</title>
+    <meta type="description" content="information this users" head-key="description">
+</Head>
+
 <div>
+    <div class="flex justify-between mb-6">
+        <h1>Users</h1>
 
-    <h1>Users</h1>
+        <input v-model="search" type="text" placeholder="Search..." class="border px-2 rounded-lg"/>
 
-    <div style="margin-top:800px">
-        <p>{{time}}</p>
-        <Link href="/users" class="text-blue-500" preserve-scroll>refresh</Link>
     </div>
+
+    <ul class="m-3">
+        <li v-for="(user,index) in users.data" :key="index" v-text="user.name"></li>
+    </ul>
+
+    <Pagination :links="users.links" />
 
 </div>
 
 </template>
 
+<script>
+import { ref } from 'vue';
+import Layout from './Shared/Layout.vue';
 
+
+
+export default{
+    layout:Layout
+}
+</script>
 
 <script setup>
+import {ref, watch} from 'vue';
+import Pagination from '@/Components/Pagination.vue';
+import { Inertia } from '@inertiajs/inertia';
 
 
-import { Link } from '@inertiajs/inertia-vue3';
-defineProps({time: String});
+let props=defineProps({users:Object,filters:Object});
+
+let search=ref(props.filters.search);
+
+watch(search,value=>{
+    Inertia.get('/users',{search:value},{
+        preserveState:true,
+        replace:true
+    });
+});
 </script>
