@@ -21,10 +21,7 @@
 </template>
 
 <script>
-import Layout from './Shared/Layout.vue';
-
-
-
+import Layout from '../Shared/Layout.vue';
 export default{
     layout:Layout
 }
@@ -34,18 +31,12 @@ export default{
 import {ref,watch} from 'vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Inertia } from '@inertiajs/inertia';
-
 let props=defineProps({time: String,users:Object,filters:Object});
-
 let search=ref(props.filters.search);
-
 watch(search,value=>{
     Inertia.get('/users',{search:value},{
         preserveState:true,
         replace:true
     })
 });
-
-
-
 </script>

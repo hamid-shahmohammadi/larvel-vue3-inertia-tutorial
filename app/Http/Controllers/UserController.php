@@ -21,10 +21,15 @@ class UserController extends Controller
         ]);
 
 
-        return inertia('Users',[
+        return inertia('Users/Index',[
             'time'=>now()->toTimeString(),
             'users'=>$users,
             'filters'=>request()->only('search')
         ]);
+    }
+
+    public function create()
+    {
+        return inertia('Users/Create');
     }
 }

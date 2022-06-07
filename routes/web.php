@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 Route::get('/about',[AboutController::class,'index'])->name('about.index');
 Route::get('/users',[UserController::class,'index'])->name('user.index');
+Route::get('/users/create',[UserController::class,'create'])->name('user.create');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

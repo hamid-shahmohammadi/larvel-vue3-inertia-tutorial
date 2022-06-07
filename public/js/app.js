@@ -620,9 +620,13 @@ var map = {
 	"./Shared/NavLink.vue": [
 		"./resources/js/Pages/Shared/NavLink.vue"
 	],
-	"./Users.vue": [
-		"./resources/js/Pages/Users.vue",
-		"resources_js_Pages_Users_vue"
+	"./Users/Create.vue": [
+		"./resources/js/Pages/Users/Create.vue",
+		"resources_js_Pages_Users_Create_vue"
+	],
+	"./Users/Index.vue": [
+		"./resources/js/Pages/Users/Index.vue",
+		"resources_js_Pages_Users_Index_vue"
 	],
 	"./Welcome.vue": [
 		"./resources/js/Pages/Welcome.vue",
