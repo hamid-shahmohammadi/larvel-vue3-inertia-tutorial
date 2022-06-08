@@ -32,4 +32,17 @@ class UserController extends Controller
     {
         return inertia('Users/Create');
     }
+
+    public function store()
+    {
+        $attr=request()->validate([
+            'name'=>'required',
+            'email'=>['required','email'],
+            'password'=>'required',
+        ]);
+
+        User::create($attr);
+
+        return redirect('/users');
+    }
 }

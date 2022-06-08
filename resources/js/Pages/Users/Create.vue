@@ -1,6 +1,6 @@
 <template>
 <div class="block p-6 rounded-lg shadow-lg bg-white m-6">
-  <form>
+  <form @submit.prevent="submit">
       <div class="form-group mb-6">
       <label class="form-label inline-block mb-2 text-gray-700">Name</label>
       <input v-model="form.name" type="text" class="form-control
@@ -96,13 +96,18 @@ export default{
 </script>
 
 <script setup>
+import { Inertia } from '@inertiajs/inertia';
 import {reactive} from 'vue';
 
 let form=reactive({
     name:'',
     email:'',
     password:'',
-})
+});
+
+let submit = ()=>{
+   Inertia.post('/users',form);
+}
 </script>
 
 <style>
