@@ -35,6 +35,7 @@ class UserController extends Controller
 
     public function store()
     {
+        sleep(3);
         $attr=request()->validate([
             'name'=>'required',
             'email'=>['required','email'],
