@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,14 +18,20 @@ class UserController extends Controller
         ->paginate()
         ->withQueryString()
         ->through(fn($user)=>[
-            'name'=>$user->name
+            'name'=>$user->name,
+            'can'=>[
+                'edit'=>Auth::user()->can('update',$user)
+            ]
         ]);
 
 
         return inertia('Users/Index',[
             'time'=>now()->toTimeString(),
             'users'=>$users,
-            'filters'=>request()->only('search')
+            'filters'=>request()->only('search'),
+            'can'=>[
+                'createuser'=>Auth::user()->can('create',User::class)
+            ]
         ]);
     }
 
@@ -35,7 +42,7 @@ class UserController extends Controller
 
     public function store()
     {
-        sleep(3);
+
         $attr=request()->validate([
             'name'=>'required',
             'email'=>['required','email'],

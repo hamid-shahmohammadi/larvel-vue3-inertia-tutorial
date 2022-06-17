@@ -19,9 +19,9 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         aria-describedby="emailHelp" placeholder="Enter Name" required>
-      <small v-if="errors.name"
+      <small v-if="form.errors.name"
        class="text-red-500 block mt-1 text-xs"
-        v-text="errors.name"
+        v-text="form.errors.name"
         ></small>
     </div>
     <div class="form-group mb-6">
@@ -42,9 +42,9 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         aria-describedby="emailHelp" placeholder="Enter email" required>
-     <small v-if="errors.email"
+     <small v-if="form.errors.email"
        class="text-red-500 block mt-1 text-xs"
-        v-text="errors.email"
+        v-text="form.errors.email"
         ></small>
     </div>
     <div class="form-group mb-6">
@@ -52,7 +52,7 @@
       <input v-model="form.password" type="password" class="form-control block
         w-full
         px-3
-        py-1.5
+
         text-base
         font-normal
         text-gray-700
@@ -64,17 +64,13 @@
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         placeholder="Password" >
-    </div>
-    <small v-if="errors.password"
-       class="text-red-500 block mt-1 text-xs"
-        v-text="errors.password"
+        <small v-if="form.errors.password"
+       class="text-red-500 block text-xs"
+        v-text="form.errors.password"
         ></small>
-    <div class="form-group form-check mb-6">
-      <input type="checkbox"
-        class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        id="exampleCheck1">
-      <label class="form-check-label inline-block text-gray-800" for="exampleCheck1">Check me out</label>
     </div>
+
+
     <input type="submit" class="
       px-6
       py-2.5
@@ -91,7 +87,7 @@
       active:bg-blue-800 active:shadow-lg
       transition
       duration-150
-      ease-in-out" :disabled="processing" value="Submit" />
+      ease-in-out" :disabled="form.processing" value="Submit" />
   </form>
 </div>
 </template>
@@ -106,27 +102,16 @@ export default{
 </script>
 
 <script setup>
-import { Inertia } from '@inertiajs/inertia';
-import {reactive,ref} from 'vue';
+import {useForm} from '@inertiajs/inertia-vue3'
 
-defineProps({
-    errors:Object
-});
-
-let form=reactive({
+let form=useForm({
     name:'',
     email:'',
     password:'',
 });
 
-let processing=ref(false);
-
 let submit = ()=>{
-
-   Inertia.post('/users',form,{
-    onStart:()=>{processing.value=true},
-    onFinish:()=>{processing.value=false},
-   });
+   form.post('/users');
 }
 </script>
 

@@ -6,11 +6,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::middleware('auth')->group(function(){
+    Route::get('/about',[AboutController::class,'index'])->name('about.index');
+    Route::get('/users',[UserController::class,'index'])->name('user.index');
+    Route::get('/users/create',[UserController::class,'create'])
+    // ->middleware('can:create,App\Models\User')
+    ->can('create','App\Models\User')
+    ->name('user.create');
+    Route::post('/users',[UserController::class,'store'])->name('user.store');
+});
 
-Route::get('/about',[AboutController::class,'index'])->name('about.index');
-Route::get('/users',[UserController::class,'index'])->name('user.index');
-Route::get('/users/create',[UserController::class,'create'])->name('user.create');
-Route::post('/users',[UserController::class,'store'])->name('user.store');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
