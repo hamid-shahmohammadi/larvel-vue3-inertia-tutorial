@@ -16,4 +16,8 @@ class AboutController extends Controller
             ]
         ]);
     }
+    public function profile()
+    {
+        return Inertia::render('Profile');
+    }
 }
